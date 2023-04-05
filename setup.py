@@ -6,13 +6,7 @@ setup(
     description="This a E2E Client tool for Certbot Plugin",
     author="Abhay Bhati",
     author_email="abhaybhati987@gmail.com",
-    packages=find_packages(),
+    packages=find_packages(exclude=["tests*"]),
     install_requires=['requests', 'setuptools'],
-    package_data={
-        '': ['*.1'],
-        '': ['docs/*.1'],
-        'docs': ['*.1'],
-    },
- 
-    include_package_data = True,
+    include_package_data=True,
 )
