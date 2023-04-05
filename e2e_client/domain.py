@@ -58,6 +58,8 @@ class Domain:
         req="POST"
         user_agent='cli_python'
         status=Request(url, Auth_Token, json.dumps(my_payload, indent=4), req, user_agent).response.json()
+        if status['code'] != 200:
+            raise Exception(status['errors']['message'])
         return status['data']
 
     def delete_record(self):
@@ -70,3 +72,16 @@ class Domain:
         user_agent='cli_python'
         status=Request(url, Auth_Token, json.dumps(my_payload, indent=4), req, user_agent).response.json()
         return status['data']
+
+    def check_domain_valid(self):
+        domain_name = self.kwargs['domain_name']
+        my_payload={}
+        API_key=self.api_key
+        Auth_Token=self.api_token
+        url = BASE_URL+"myaccount/api/v1/e2e_dns/forward/"+domain_name+"/?apikey="+API_key+"&contact_person_id=null&location=Delhi"
+        req="GET"
+        status=Request(url, Auth_Token, my_payload, req).response.json()
+        if status['code'] != 200:
+            raise Exception('Domain not found')
+        return status['data']
+    
