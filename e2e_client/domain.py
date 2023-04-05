@@ -1,6 +1,6 @@
 import json
-from e2e_core.request_service import Request
-from e2e_core.constants import BASE_URL
+from e2e_client.request_service import Request
+from e2e_client.constants import BASE_URL
 
 class payload:
     def __init__(self, **kwargs):
