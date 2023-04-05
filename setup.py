@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='e2e_client',
-    version='1.2.1',
+    version='1.2.2',
     description="This a E2E Client tool for Certbot Plugin",
     author="Abhay Bhati",
     author_email="abhaybhati987@gmail.com",
