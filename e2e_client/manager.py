@@ -15,7 +15,6 @@ class Manager:
             url = BASE_URL+"myaccount/api/v1/e2e_dns/forward/?apikey="+API_key+"&contact_person_id=null&location=Delhi"
             req="GET"
             status=Request(url, Auth_Token, my_payload, req).response.json()
-            return True
         except:    
             if status['responseCode']:
                 raise TokenException("Token or key is invalid")
