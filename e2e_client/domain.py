@@ -78,7 +78,7 @@ class Domain:
         domain_name = self.kwargs['domain_name']
         domain = domain_name.strip('.')
         domian_info = whois.whois(domain)
-        if E2E_NAME_SERVERS in domian_info.name_servers:
+        if E2E_NAME_SERVERS not in domian_info.name_servers:
             raise DomainException('Domain not registered on e2e_networks')
         my_payload={}
         API_key=self.api_key
