@@ -77,7 +77,10 @@ class Domain:
     def check_domain_valid(self):
         domain_name = self.kwargs['domain_name']
         domain = domain_name.strip('.')
-        domian_info = whois.whois(domain)
+        try:
+            domian_info = whois.whois(domain)
+        except Exception as e:
+            raise DomainException('Domain is invalid')    
         if E2E_NAME_SERVERS not in domian_info.name_servers:
             raise DomainException('Domain not registered on e2e_networks')
         my_payload={}
