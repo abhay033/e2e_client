@@ -1,7 +1,8 @@
 import json
 from e2e_client.request_service import Request
-from e2e_client.constants import BASE_URL
-
+from e2e_client.constants import BASE_URL, E2E_NAME_SERVERS
+from e2e_client.exceptions import DomainException
+import whois
 class payload:
     def __init__(self, **kwargs):
         self.zone_name = kwargs['zone_name']
@@ -75,6 +76,10 @@ class Domain:
 
     def check_domain_valid(self):
         domain_name = self.kwargs['domain_name']
+        domain = domain_name.strip('.')
+        domian_info = whois.whois(domain)
+        if E2E_NAME_SERVERS in domian_info.name_servers:
+            raise DomainException('Domain not registered on e2e_networks')
         my_payload={}
         API_key=self.api_key
         Auth_Token=self.api_token
@@ -82,6 +87,6 @@ class Domain:
         req="GET"
         status=Request(url, Auth_Token, my_payload, req).response.json()
         if status['code'] != 200:
-            raise Exception('Domain not found')
+            raise DomainException('Domain not found')
         return status['data']
     

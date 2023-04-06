@@ -1,5 +1,6 @@
 from e2e_client.request_service import Request
 from e2e_client.constants import BASE_URL
+from e2e_client.exceptions import TokenException
 
 class Manager:
     def __init__(self, **kwargs):
@@ -17,5 +18,5 @@ class Manager:
             return True
         except:    
             if status['responseCode']:
-                raise Exception("Token or key is invalid")
+                raise TokenException("Token or key is invalid")
             
